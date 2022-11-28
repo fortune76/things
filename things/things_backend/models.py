@@ -1,7 +1,7 @@
 from django.db import models
 from cities_light.models import City
 
-from things.users.models import UserProfile
+from users.models import UserProfile
 
 
 # Create your models here.
@@ -12,7 +12,6 @@ class Post(models.Model):
     title = models.CharField(max_length=150, verbose_name='Название объявления')
     price = models.IntegerField(verbose_name='Цена')
     content = models.TextField(blank=True, verbose_name='Описание')
-    photo = models.ImageField(verbose_name='Фото')
     time_create = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
     time_update = models.DateTimeField(auto_now=True, verbose_name='Дата редактирования')
     likes = models.IntegerField(default=0, verbose_name='Лайки')
@@ -24,6 +23,10 @@ class Post(models.Model):
 
     def __str__(self) -> str:
         return self.title
+    
+    class Meta:
+        verbose_name = 'Объявление'
+        verbose_name_plural = 'Объявления'
     
 
 class Category(models.Model):
@@ -39,6 +42,10 @@ class Category(models.Model):
         '''
         return self.main_category + ': ' + self.sub_category
     
+    class Meta:
+        verbose_name = 'Категория'
+        verbose_name_plural = 'Категории'
+    
 
 class Tag(models.Model):
     '''
@@ -48,4 +55,15 @@ class Tag(models.Model):
     category = models.ForeignKey('Category', on_delete=models.CASCADE, verbose_name='Категория')
     
     def __str__(self) -> str:
-        return self.name
+        return self.name + ' (' + str(self.category) + ')'
+
+    class Meta:
+        verbose_name = 'Тэг'
+        verbose_name_plural = 'Тэги'
+
+class Photo(models.Model):
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    image = models.ImageField(upload_to='posts/')
+    
+    def __str__(self) -> str:
+        return self.image.name

@@ -2,3 +2,5 @@ things_venv
 db_data
 .env
 __pycache__
+avatars
+posts/
