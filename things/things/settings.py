@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'cities_light',
     'things_backend.apps.ThingsBackendConfig',
     'users.apps.UsersConfig',
+    'knox',
 ]
 
 MIDDLEWARE = [
@@ -142,3 +143,7 @@ CITIES_LIGHT_TRANSLATION_LANGUAGES = ['ru', 'en', 'kz']
 CITIES_LIGHT_INCLUDE_COUNTRIES = ['KZ']
 
 PHONENUMBER_DEFAULT_REGION = 'KZ'
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': ('knox.auth.TokenAuthentication',),
+}
