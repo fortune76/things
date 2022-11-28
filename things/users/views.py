@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from django.contrib.auth import login
 
-from rest_framework import viewsets, permissions
 from knox.views import LoginView as KnoxLoginView
+from rest_framework import permissions, viewsets
 from rest_framework.authtoken.serializers import AuthTokenSerializer
 
 from .models import UserProfile

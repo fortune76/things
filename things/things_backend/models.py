@@ -1,10 +1,9 @@
-from django.db import models
 from cities_light.models import City
+from django.db import models
 
 from users.models import UserProfile
 
 
-# Create your models here.
 class Post(models.Model):
     '''
     Модель для объявления.
@@ -38,7 +37,7 @@ class Category(models.Model):
 
     def __str__(self) -> str:
         '''
-        Возвращаем в формате Автомобили: Запчасти
+        Возвращаем в формате <Автомобили: Запчасти>.
         '''
         return self.main_category + ': ' + self.sub_category
     
@@ -49,7 +48,7 @@ class Category(models.Model):
 
 class Tag(models.Model):
     '''
-    Модель тэгов. Для каждой категории свои теги.
+    Модель тэгов. Для каждой категории используются свои теги.
     '''
     name = models.CharField(max_length=50, verbose_name='Название')
     category = models.ForeignKey('Category', on_delete=models.CASCADE, verbose_name='Категория')
@@ -60,6 +59,7 @@ class Tag(models.Model):
     class Meta:
         verbose_name = 'Тэг'
         verbose_name_plural = 'Тэги'
+
 
 class Photo(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
